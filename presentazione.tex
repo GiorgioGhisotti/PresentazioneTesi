@@ -107,17 +107,18 @@
 
 \begin{frame}
 	\frametitle{Il Problema}
-	\vskip 0.4cm
+	\vskip 0.6cm
 	\begin{center}
 		\begin{huge}
-			Trovare automaticamente punti operazione per carrelli automatici (AGV)
+			Individuare punti operazione per carrelli automatici (AGV)
 		\end{huge}
 	\end{center}
-\vskip 0.4cm
-\begin{center}
-	\includegraphics[scale=0.5]{Img/LGV/op}
-\end{center}
+	\vskip 0.2cm
+	\begin{center}
+		\includegraphics[scale=0.5]{Img/LGV/op}
+	\end{center}
 \end{frame}
+
 \begin{frame}
 	\frametitle{Come si procedeva prima}
 	\begin{columns}
@@ -142,6 +143,7 @@
 			\includegraphics[width=\textwidth]{Img/LGV/select}
 	\end{columns}
 \end{frame}
+
 \begin{frame}
 	\frametitle{Dalla Point Cloud al 2D}
 	\begin{columns}
@@ -158,6 +160,7 @@
 			\includegraphics[width=\textwidth]{Img/2D/mag_2d_num_inv}
 	\end{columns}
 \end{frame}
+
 \begin{frame}
 	\frametitle{Individuazione con OpenCV}
 	\begin{columns}
@@ -175,6 +178,7 @@
 			\includegraphics[width=\textwidth]{Img/2D/found_curves_red_crop_inv}
 	\end{columns}
 \end{frame}
+
 \begin{frame}
 	\frametitle{Filtri}
 	\begin{multicols}{2}
@@ -224,6 +228,7 @@
 			\item I falsi positivi sono accettabili in basso numero
 			\item Togliere manualmente un punto operazione dal sistema è preferibile ad aggiungerne uno
 			\item I tempi di esecuzione del sistema sono di poche ore al massimo
+			\item Una volta generata l'immagine del magazzino la ricerca richiede pochi minuti
 		\end{itemize}
 		
 		\column{0.4\textwidth}
@@ -277,14 +282,47 @@
 	\begin{columns}
 		\column{0.6\textwidth}
 		\begin{itemize}
-			\item Mediamente il sistema trova quasi tutti gli oggetti cercati
-			\item Il sistema genera spesso qualche falso positivo
-			\item I falsi positivi sono accettabili in basso numero
-			\item Togliere manualmente un punto operazione dal sistema è preferibile ad aggiungerne uno
-			\item I tempi di esecuzione del sistema sono di poche ore al massimo
+			\item Il sistema dipende dalla possibilità di generare immagini adatte
+			\item Il filtro NMS può generare aberrazioni con template dalla forma particolare
+			\item La funzione RANSAC che stima le file di rack potrebbe sbagliare in un magazzino con molte file parallele
+			\item Nell'implementazione corrente il sistema non cerca oggetti ruotati rispetto al template
 		\end{itemize}
 		\column{0.4\textwidth}
 	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sviluppi futuri}
+	\begin{columns}
+		\column{0.6\textwidth}
+		\begin{center}
+			\begin{large}
+				\begin{itemize}
+					\item Ricerca di corrispondenze ruotate
+					\vskip 1.5cm
+					\item Stima di un raggio per NMS basato\\adatto al template fornito
+					\vskip 1cm
+					\item Verifica di correttezza delle file ipotizzate
+				\end{itemize}
+			\end{large}
+		\end{center}
+		\column{0.4\textwidth}
+		\includegraphics[width=\textwidth]{Img/2D/aberrazioni_crop_inv}\\
+		\includegraphics[width=\textwidth]{Img/2D/aberrazioni0_crop_inv}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Grazie}
+	\begin{center}
+		\vskip 3cm
+		\begin{huge}
+				Grazie per l'attenzione!
+		\end{huge}
+		\vskip 3cm
+		Giorgio Ghisotti\\
+		giorgio.ghisotti@studenti.unipr.it
+	\end{center}
 \end{frame}
 
 
