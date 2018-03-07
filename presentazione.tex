@@ -80,6 +80,13 @@
 \usepackage{ifthen}
 \usepackage{uniprpres}
 \usepackage{color}
+\usepackage{multicol}
+\usepackage{pgfplots}
+\usepackage{gensymb}
+\usepackage[latin1]{inputenc}
+\usepackage[italian]{babel}
+
+\setlength{\columnseprule}{1pt}
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
@@ -132,13 +139,153 @@
 				\end{itemize}
 			\end{large}
 		\column{0.4\textwidth}
-		\includegraphics[width=\textwidth]{Img/LGV/select}
+			\includegraphics[width=\textwidth]{Img/LGV/select}
 	\end{columns}
 \end{frame}
 \begin{frame}
 	\frametitle{Dalla Point Cloud al 2D}
+	\begin{columns}
+		\column{0.4\textwidth}
+			\begin{enumerate}
+				\item Si assegna un valore ai punti in base alla curvatura della superficie
+				\item Si accumulano i valori generati su una griglia in 2D
+				\item Si assegna un colore in scala di grigi alle caselle della griglia in base al colore
+			\end{enumerate}
+		\column{0.5\textwidth}
+			\includegraphics[width=0.6\textwidth]{Img/CURVATURE/CURVATURE_02_num}
+			\includegraphics[width=0.4\textwidth]{Img/CURVATURE/CURVATURE_01_grid_num}
+			\vskip 0.5cm
+			\includegraphics[width=\textwidth]{Img/2D/mag_2d_num_inv}
+	\end{columns}
+\end{frame}
+\begin{frame}
+	\frametitle{Individuazione con OpenCV}
+	\begin{columns}
+		\column{0.5\textwidth}
+			\begin{itemize}
+				\item La libreria OpenCV permette di riconoscere gli oggetti automaticamente
+				\vskip 0.3cm
+				\item Basta indicare al sistema un template
+				\vskip 0.8cm
+				\item Sono necessari alcuni filtri
+			\end{itemize}
+		\column{0.4\textwidth}
+			\includegraphics[width=\textwidth]{Img/2D/nofilter_crop_inv}
+			\vskip 0.5cm
+			\includegraphics[width=\textwidth]{Img/2D/found_curves_red_crop_inv}
+	\end{columns}
+\end{frame}
+\begin{frame}
+	\frametitle{Filtri}
+	\begin{multicols}{2}
+		\begin{itemize}
+			\item Soglia
+				\begin{itemize}
+					\item Scarta i risultati con valore troppo basso
+				\end{itemize}
+			\item NMS
+				\begin{itemize}
+					\item Non Maximum Suppression
+					\item Trova i picchi locali
+					\item Elimina i risultati troppo vicini ai picchi
+				\end{itemize}
+			\item Filtro di fila
+				\begin{itemize}
+					\item Stima le file di rack con RANSAC
+					\item Scarta i risultati troppo lontani dalle file
+				\end{itemize}
+		\end{itemize}
+	\columnbreak
+			\begin{center}
+				{\bfseries Soglia severa\\
+				$\Downarrow$\\
+				Filtro NMS\\
+				$\Downarrow$\\
+				Stima delle file con RANSAC\\
+				$\Downarrow$\\
+				Soglia permissiva\\
+				$\Downarrow$\\
+				Filtro di fila\\
+				$\Downarrow$\\
+				Filtro NMS}
+			\end{center}
+	\end{multicols}
 \end{frame}
 
+\begin{frame}
+\pgfplotsset{width = \textwidth}
+	\frametitle{Risultati}
+	\begin{columns}
+		\column{0.6\textwidth}
+		
+		\begin{itemize}
+			\item Mediamente il sistema trova quasi tutti gli oggetti cercati
+			\item Il sistema genera spesso qualche falso positivo
+			\item I falsi positivi sono accettabili in basso numero
+			\item Togliere manualmente un punto operazione dal sistema è preferibile ad aggiungerne uno
+			\item I tempi di esecuzione del sistema sono di poche ore al massimo
+		\end{itemize}
+		
+		\column{0.4\textwidth}
+		\begin{center}
+			\begin{tiny}
+				\begin{tikzpicture}
+					\begin{axis}[
+						ybar,
+						enlargelimits=0.15,
+						legend style={at={(0.5,-0.2)},
+							anchor=north,legend columns=-1},
+						ylabel={Falsi positivi/Corretti (\%)},
+						symbolic x coords={-20\degree,-10\degree,0\degree,%
+							10\degree,20\degree,180\degree},
+						xtick=data,
+						nodes near coords,
+						nodes near coords align={vertical},
+						]
+						\addplot[draw=gray, fill=gray, bar width=0.06\textwidth] coordinates {
+							(-20\degree,8.7) (-10\degree,1.8) (0\degree,1.8)
+							(10\degree ,1.3) (20\degree,3.7) (180\degree,2.7)
+						};
+					\end{axis}
+				\end{tikzpicture}
+				\begin{tikzpicture}
+					\begin{axis}[
+						ybar,
+						enlargelimits=0.15,
+						legend style={at={(0.5,-0.2)},
+							anchor=north,legend columns=-1},
+						ylabel={Numero medio di falsi positivi},
+						symbolic x coords={-20\degree,-10\degree,0\degree,%
+							10\degree,20\degree,180\degree},
+						xtick=data,
+						nodes near coords,
+						nodes near coords align={vertical},
+						]
+						\addplot[draw=gray, fill=gray, bar width=0.06\textwidth] coordinates {
+							(-20\degree,2.6) (-10\degree,0.2) (0\degree,0.2)
+							(10\degree ,0.5) (20\degree,1.1) (180\degree,1)
+						};
+					\end{axis}
+				\end{tikzpicture}
+			\end{tiny}
+		\end{center}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Limitazioni}
+	\begin{columns}
+		\column{0.6\textwidth}
+		\begin{itemize}
+			\item Mediamente il sistema trova quasi tutti gli oggetti cercati
+			\item Il sistema genera spesso qualche falso positivo
+			\item I falsi positivi sono accettabili in basso numero
+			\item Togliere manualmente un punto operazione dal sistema è preferibile ad aggiungerne uno
+			\item I tempi di esecuzione del sistema sono di poche ore al massimo
+		\end{itemize}
+		\column{0.4\textwidth}
+	\end{columns}
+\end{frame}
 
 
 
