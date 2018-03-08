@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6300 64-bit) (preloaded format=pdflatex 2017.7.15)  7 MAR 2018 22:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6300 64-bit) (preloaded format=pdflatex 2017.7.15)  8 MAR 2018 19:35
 entering extended mode
 **./presentazione.tex
 (presentazione.tex
@@ -1285,73 +1285,90 @@ Package pdftex.def Info: Img/LGV/select.jpg used on input line 145.
  [3
 
  <./Img/LGV/select.jpg>]
-<Img/CURVATURE/CURVATURE_02_num.jpg, id=105, 1472.50125pt x 956.57375pt>
+<Img/LGV/Leica_ScanStation_P40.jpg, id=105, 451.6875pt x 429.605pt>
+File: Img/LGV/Leica_ScanStation_P40.jpg Graphic file (type jpg)
+
+<use Img/LGV/Leica_ScanStation_P40.jpg>
+Package pdftex.def Info: Img/LGV/Leica_ScanStation_P40.jpg used on input line 1
+66.
+(pdftex.def)             Requested size: 82.15045pt x 78.13185pt.
+
+<Img/LGV/bunny_crop.jpg, id=106, 465.1745pt x 485.53226pt>
+File: Img/LGV/bunny_crop.jpg Graphic file (type jpg)
+
+<use Img/LGV/bunny_crop.jpg>
+Package pdftex.def Info: Img/LGV/bunny_crop.jpg used on input line 166.
+(pdftex.def)             Requested size: 82.15045pt x 85.73991pt.
+ [4
+
+ <./Img/LGV/Leica_ScanStation_P40.jpg> <./Img/LGV/bunny_crop.jpg>]
+<Img/CURVATURE/CURVATURE_02_num.jpg, id=134, 1472.50125pt x 956.57375pt>
 File: Img/CURVATURE/CURVATURE_02_num.jpg Graphic file (type jpg)
 
 <use Img/CURVATURE/CURVATURE_02_num.jpg>
 Package pdftex.def Info: Img/CURVATURE/CURVATURE_02_num.jpg used on input line 
-162.
+183.
 (pdftex.def)             Requested size: 102.68962pt x 66.70427pt.
 
-<Img/CURVATURE/CURVATURE_01_grid_num.jpg, id=106, 910.40125pt x 946.53625pt>
+<Img/CURVATURE/CURVATURE_01_grid_num.jpg, id=135, 910.40125pt x 946.53625pt>
 File: Img/CURVATURE/CURVATURE_01_grid_num.jpg Graphic file (type jpg)
 
 <use Img/CURVATURE/CURVATURE_01_grid_num.jpg>
 Package pdftex.def Info: Img/CURVATURE/CURVATURE_01_grid_num.jpg used on input 
-line 162.
+line 183.
 (pdftex.def)             Requested size: 68.45801pt x 71.17491pt.
 
-<Img/2D/mag_2d_num_inv.jpg, id=107, 437.635pt x 165.61874pt>
+<Img/2D/mag_2d_num_inv.jpg, id=136, 437.635pt x 165.61874pt>
 File: Img/2D/mag_2d_num_inv.jpg Graphic file (type jpg)
 
 <use Img/2D/mag_2d_num_inv.jpg>
-Package pdftex.def Info: Img/2D/mag_2d_num_inv.jpg used on input line 162.
+Package pdftex.def Info: Img/2D/mag_2d_num_inv.jpg used on input line 183.
 (pdftex.def)             Requested size: 171.14764pt x 64.77046pt.
- [4
+ [5
 
  <./Img/CURVATURE/CURVATURE_02_num.jpg> <./Img/CURVATURE/CURVATURE_01_grid_num.
 jpg> <./Img/2D/mag_2d_num_inv.jpg>]
-<Img/2D/nofilter_crop_inv.jpg, id=134, 280.79906pt x 124.21407pt>
+<Img/2D/nofilter_crop_inv.jpg, id=163, 280.79906pt x 124.21407pt>
 File: Img/2D/nofilter_crop_inv.jpg Graphic file (type jpg)
 
 <use Img/2D/nofilter_crop_inv.jpg>
-Package pdftex.def Info: Img/2D/nofilter_crop_inv.jpg used on input line 180.
+Package pdftex.def Info: Img/2D/nofilter_crop_inv.jpg used on input line 201.
 (pdftex.def)             Requested size: 136.91603pt x 60.56595pt.
 
-<Img/2D/found_curves_red_crop_inv.jpg, id=135, 277.78781pt x 130.23656pt>
+<Img/2D/found_curves_red_crop_inv.jpg, id=164, 277.78781pt x 130.23656pt>
 File: Img/2D/found_curves_red_crop_inv.jpg Graphic file (type jpg)
 
 <use Img/2D/found_curves_red_crop_inv.jpg>
 Package pdftex.def Info: Img/2D/found_curves_red_crop_inv.jpg used on input lin
-e 180.
+e 201.
 (pdftex.def)             Requested size: 136.91603pt x 64.19205pt.
- [5
+ [6
 
- <./Img/2D/nofilter_crop_inv.jpg> <./Img/2D/found_curves_red_crop_inv.jpg>] [6
+ <./Img/2D/nofilter_crop_inv.jpg> <./Img/2D/found_curves_red_crop_inv.jpg>] [7
 
-] [7
+] [8
 
 ]
-<Img/2D/aberrazioni_crop_inv.jpg, id=219, 389.20406pt x 205.5178pt>
+<Img/2D/aberrazioni_crop_inv.jpg, id=248, 389.20406pt x 205.5178pt>
 File: Img/2D/aberrazioni_crop_inv.jpg Graphic file (type jpg)
 
 <use Img/2D/aberrazioni_crop_inv.jpg>
-Package pdftex.def Info: Img/2D/aberrazioni_crop_inv.jpg used on input line 294
+Package pdftex.def Info: Img/2D/aberrazioni_crop_inv.jpg used on input line 315
 .
 (pdftex.def)             Requested size: 136.91603pt x 72.29921pt.
 
-<Img/2D/aberrazioni0_crop_inv.jpg, id=220, 299.61937pt x 161.10187pt>
+<Img/2D/aberrazioni0_crop_inv.jpg, id=249, 299.61937pt x 161.10187pt>
 File: Img/2D/aberrazioni0_crop_inv.jpg Graphic file (type jpg)
 
 <use Img/2D/aberrazioni0_crop_inv.jpg>
-Package pdftex.def Info: Img/2D/aberrazioni0_crop_inv.jpg used on input line 29
-4.
+Package pdftex.def Info: Img/2D/aberrazioni0_crop_inv.jpg used on input line 31
+5.
 (pdftex.def)             Requested size: 136.91603pt x 73.61856pt.
- [8
+ [9
 
- <./Img/2D/aberrazioni_crop_inv.jpg> <./Img/2D/aberrazioni0_crop_inv.jpg>] [9
+ <./Img/2D/aberrazioni_crop_inv.jpg> <./Img/2D/aberrazioni0_crop_inv.jpg>] [10
 
-] [10
+] [11
 
 ]
 \tf@nav=\write6
@@ -1363,11 +1380,11 @@ Package pdftex.def Info: Img/2D/aberrazioni0_crop_inv.jpg used on input line 29
 \tf@snm=\write8
 \openout8 = `presentazione.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 349.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 349.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 370.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 370.
  (presentazione.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 349.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 349.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 370.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 370.
 Package rerunfilecheck Info: File `presentazione.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
@@ -1377,11 +1394,11 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 30909 strings out of 493328
- 752318 string characters out of 3139118
+ 30925 strings out of 493328
+ 752676 string characters out of 3139118
  969217 words of memory out of 3000000
- 33774 multiletter control sequences out of 15000+200000
- 14791 words of font info for 54 fonts, out of 3000000 for 9000
+ 33785 multiletter control sequences out of 15000+200000
+ 15147 words of font info for 55 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  64i,16n,98p,781b,2547s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Pro
@@ -1390,12 +1407,13 @@ es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/Program Files/MiKTe
 X 2.9/fonts/type1/public/amsfonts/cm/cmss17.pfb><C:/Program Files/MiKTeX 2.9/fo
 nts/type1/public/amsfonts/cm/cmss8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
 /public/amsfonts/cm/cmssbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
-c/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
-ts/cm/cmsy5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbol
-s/msam7.pfb>
-Output written on presentazione.pdf (10 pages, 3385217 bytes).
+c/amsfonts/cm/cmssi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfo
+nts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+msy5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msam7
+.pfb>
+Output written on presentazione.pdf (11 pages, 3634767 bytes).
 PDF statistics:
- 332 PDF objects out of 1000 (max. 8388607)
- 21 named destinations out of 1000 (max. 500000)
- 99 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 364 PDF objects out of 1000 (max. 8388607)
+ 23 named destinations out of 1000 (max. 500000)
+ 109 words of extra memory for PDF output out of 10000 (max. 10000000)
 

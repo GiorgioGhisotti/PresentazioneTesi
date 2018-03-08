@@ -145,6 +145,27 @@
 \end{frame}
 
 \begin{frame}
+	\frametitle{Point Cloud}
+	\begin{columns}
+		\column{0.6\textwidth}
+		\begin{itemize}
+			\item Si usano delle scansioni laser dei magazzini
+			\item Gli strumenti di aquisizione sono sensori laser ad alta precisione
+			\item I dati ottenuti sono sotto forma di Point Cloud
+			\item Ogni punto ha le sue coordinate in 3D
+			\vskip 0.6cm
+			\item La Point Cloud di un magazzino contiene \textit{centinaia di miliardi} di punti
+		\end{itemize}
+		\column{0.4\textwidth}
+		\begin{center}
+			\includegraphics[width=0.6\textwidth]{Img/LGV/Leica_ScanStation_P40}
+			\vskip 0.5cm
+			\includegraphics[width=0.6\textwidth]{Img/LGV/bunny_crop}
+		\end{center}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Dalla Point Cloud al 2D}
 	\begin{columns}
 		\column{0.4\textwidth}
@@ -299,8 +320,8 @@
 			\begin{large}
 				\begin{itemize}
 					\item Ricerca di corrispondenze ruotate
-					\vskip 1.5cm
-					\item Stima di un raggio per NMS basato\\adatto al template fornito
+					\vskip 1cm
+					\item Stima di un raggio per NMS adatto al template fornito
 					\vskip 1cm
 					\item Verifica di correttezza delle file ipotizzate
 				\end{itemize}
