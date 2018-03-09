@@ -106,72 +106,85 @@
 \maketitle
 
 \begin{frame}
-	\frametitle{Il Problema}
+	\frametitle{Obiettivo del progetto}	%spiegare meglio punti operazione, aggiungere immagini
 	\vskip 0.6cm
 	\begin{center}
 		\begin{huge}
-			Individuare punti operazione per carrelli automatici (AGV)
+			Individuare programmaticamente punti operazione per veicoli industriali a guida automatica (AGV)
 		\end{huge}
 	\end{center}
-	\vskip 0.2cm
-	\begin{center}
-		\includegraphics[scale=0.5]{Img/LGV/op}
-	\end{center}
+	\begin{columns}
+		\column{0.65\textwidth}
+		\begin{itemize}
+			\item Punto Operazione: Configurazione per AGV che permette le operazioni di caricamento e scaricamento della merce
+		\end{itemize}
+		\column{0.35\textwidth}
+		\begin{center}
+			\includegraphics[width=\textwidth]{Img/LGV/op_po}
+		\end{center}
+	\end{columns}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Come si procedeva prima}
+	\frametitle{Individuazione manuale dei Punti Operazione}
 	\begin{columns}
 		\column{0.6\textwidth}
 			\begin{large}
 				\begin{itemize}
 					\item Misurazioni manuali sul campo
 					\begin{itemize}
-						\item Effettuate conducendo un carrello in giro per il magazzino
-						\item Richiedevano mesi
-						\item Rendevano inagibili parti del magazzino durante la procedura
+						\item Si guida manualmente un veicolo nel magazzino
+						\item Una volta individuata una posizione corretta la si registra nel database
+						\item Difetti:
+							\begin{itemize}
+								\item Alto costo in ore/uomo
+								\item Può richiedere un blocco della produzione
+							\end{itemize}
 					\end{itemize}
-					\item Individuazione manuale con l'aiuto di un programma
-					\begin{itemize}
-						\item Procedura tediosa
-						\item Richiede settimane
-						\item Occupa l'operatore per molto tempo
+					\item Selezione manuale tramite software
+					\begin{itemize}	%migliorare linguaggio
+						%\item Meno complessa delle misurazioni sul campo
+						\item Difetti:
+							\begin{itemize}
+								\item Più lenta di una selezione automatica
+								\item Potenzialmente imprecisa e sensibile all'errore umano
+							\end{itemize}
 					\end{itemize}
 				\end{itemize}
 			\end{large}
 		\column{0.4\textwidth}
-			\includegraphics[width=\textwidth]{Img/LGV/select}
+		\vskip 0.7cm
+		\includegraphics[width=0.8\textwidth]{Img/LGV/indman}\vskip 1.3cm
+			\includegraphics[width=0.8\textwidth]{Img/LGV/select}
 	\end{columns}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Point Cloud}
+	\frametitle{Descrizione del sistema sviluppato}
 	\begin{columns}
 		\column{0.6\textwidth}
 		\begin{itemize}
-			\item Si usano delle scansioni laser dei magazzini
-			\item Gli strumenti di aquisizione sono sensori laser ad alta precisione
-			\item I dati ottenuti sono sotto forma di Point Cloud
-			\item Ogni punto ha le sue coordinate in 3D
-			\vskip 0.6cm
-			\item La Point Cloud di un magazzino contiene \textit{centinaia di miliardi} di punti
+			\item Il sistema esegue una ricerca di tipo pattern matching su un'immagine 2D
+			\item Si hanno a disposizione delle scansioni laser terrestri dei magazzini, aquisite con sensori Leica ScanStation P30
+			\item I dati in entrata sono sotto forma di Point Cloud (che deve essere convertita in un'immagine 2D)
+			\item La Point Cloud di un magazzino medio contiene miliardi di punti
 		\end{itemize}
 		\column{0.4\textwidth}
 		\begin{center}
-			\includegraphics[width=0.6\textwidth]{Img/LGV/Leica_ScanStation_P40}
-			\vskip 0.5cm
-			\includegraphics[width=0.6\textwidth]{Img/LGV/bunny_crop}
+			\includegraphics[width=0.7\textwidth]{Img/LGV/Leica_ScanStation_P30}\\
+			\includegraphics[width=\textwidth]{Img/LGV/pcld}
 		\end{center}
 	\end{columns}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Dalla Point Cloud al 2D}
+	\frametitle{Descrizione del sistema sviluppato}
 	\begin{columns}
 		\column{0.4\textwidth}
-			\begin{enumerate}
-				\item Si assegna un valore ai punti in base alla curvatura della superficie
-				\item Si accumulano i valori generati su una griglia in 2D
+		Per convertire una Point Cloud in un'immagine 2D:
+			\begin{enumerate}		%must be better
+				\item Si assegna un valore ai punti in base alla curvatura della superficie sottostante stimata
+				\item Si appiattisce la point cloud e si sommano i valori che cadono sulle celle di una griglia in 2D
 				\item Si assegna un colore in scala di grigi alle caselle della griglia in base al colore
 			\end{enumerate}
 		\column{0.5\textwidth}
@@ -183,85 +196,101 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Individuazione con OpenCV}
+	\frametitle{Descrizione del sistema sviluppato}
 	\begin{columns}
 		\column{0.5\textwidth}
 			\begin{itemize}
-				\item La libreria OpenCV permette di riconoscere gli oggetti automaticamente
-				\vskip 0.3cm
-				\item Basta indicare al sistema un template
-				\vskip 0.8cm
+				\item La libreria OpenCV assegna un valore ad ogni pixel in base alla somiglianza con un template
+				\item Il valore è determinato con una Cross Correlation tra l'immagine e il template
+				\item Il template deve essere selezionato dall'utente
 				\item Sono necessari alcuni filtri
 			\end{itemize}
 		\column{0.4\textwidth}
-			\includegraphics[width=\textwidth]{Img/2D/nofilter_crop_inv}
-			\vskip 0.5cm
-			\includegraphics[width=\textwidth]{Img/2D/found_curves_red_crop_inv}
+		\begin{center}
+			\begin{tiny}
+				Template:\vskip 0.3cm
+				\includegraphics[scale=0.5]{Img/2D/template}
+				\vskip 0.5cm Immagine 2D degli scaffali:
+				\includegraphics[width=\textwidth]{Img/2D/mag_2d_inv_crop}
+				\\Corrispondenze con il template (in azzurro):
+				\includegraphics[width=\textwidth]{Img/2D/nofilter_crop_inv}
+				\\Risultati filtrati:
+				\includegraphics[width=\textwidth]{Img/2D/found_curves_red_crop_inv}
+			\end{tiny}
+		\end{center}
 	\end{columns}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Filtri}
+	\frametitle{Descrizione del sistema sviluppato}
 	\begin{multicols}{2}
 		\begin{itemize}
 			\item Soglia
 				\begin{itemize}
-					\item Scarta i risultati con valore troppo basso
+					\item Scarta i risultati dal valore troppo basso
 				\end{itemize}
-			\item NMS
+			\item Non Maximum Suppression
 				\begin{itemize}
-					\item Non Maximum Suppression
-					\item Trova i picchi locali
-					\item Elimina i risultati troppo vicini ai picchi
+					\item Elimina le individuazioni multiple dello stesso oggetto
 				\end{itemize}
-			\item Filtro di fila
+			\item Stima dell'orientamento delle file
 				\begin{itemize}
-					\item Stima le file di rack con RANSAC
-					\item Scarta i risultati troppo lontani dalle file
+					\item Si ipotizza che gli scaffali siano disposti in file
+					\item Scarta i risultati troppo lontani dalle file stimate
 				\end{itemize}
 		\end{itemize}
 	\columnbreak
 			\begin{center}
-				{\bfseries Soglia severa\\
+				{\bfseries Soglia alta - individuazione di pochi risultati\\
 				$\Downarrow$\\
-				Filtro NMS\\
+				Filtro NMS - rimozione dei duplicati\\
 				$\Downarrow$\\
-				Stima delle file con RANSAC\\
+				Stima delle file di scaffali con i risultati rimasti\\
 				$\Downarrow$\\
-				Soglia permissiva\\
+				Soglia bassa - si ripete la ricerca\\
 				$\Downarrow$\\
-				Filtro di fila\\
+				Eliminazione dei risultati troppo lontani dalle file ipotizzate\\
 				$\Downarrow$\\
-				Filtro NMS}
+				Filtro NMS - eliminazione dei duplicati rimanenti}
 			\end{center}
 	\end{multicols}
 \end{frame}
 
 \begin{frame}
+\frametitle{Risultati su un magazzino completo}
+\vskip -0.5cm
+\begin{itemize}
+	\item La linea blu rappresenta la fila di scaffali ipotizzata dal sistema
+	\item Si può osservare un falso positivo che è sfuggito ai filtri, a sinistra nell'immagine
+\end{itemize}
+\vskip 0.5cm
+\includegraphics[width=\textwidth]{Img/2D/found_curves_red_inv}
+\end{frame}
+
+\begin{frame}
 \pgfplotsset{width = \textwidth}
-	\frametitle{Risultati}
+	\frametitle{Risultati statistici}
 	\begin{columns}
 		\column{0.6\textwidth}
 		
 		\begin{itemize}
-			\item Mediamente il sistema trova quasi tutti gli oggetti cercati
-			\item Il sistema genera spesso qualche falso positivo
-			\item I falsi positivi sono accettabili in basso numero
-			\item Togliere manualmente un punto operazione dal sistema è preferibile ad aggiungerne uno
-			\item I tempi di esecuzione del sistema sono di poche ore al massimo
-			\item Una volta generata l'immagine del magazzino la ricerca richiede pochi minuti
+			\item Mediamente il sistema trova quasi tutti gli oggetti cercati ma genera spesso qualche falso positivo
+			\item Correggere un falso positivo è preferibile a correggere un falso negativo
+			\item I tempi di generazione dell'immagine 2D sono inferiori a un'ora su un magazzino di $95m\times27m$
+			\item Una volta generata l'immagine, la ricerca richiede pochi minuti sul magazzino mostrato
 		\end{itemize}
 		
 		\column{0.4\textwidth}
 		\begin{center}
 			\begin{tiny}
+				Dati ottenuti da test svolti con diversi orientamenti delle file di scaffali:\vskip 0.3cm
 				\begin{tikzpicture}
 					\begin{axis}[
 						ybar,
 						enlargelimits=0.15,
 						legend style={at={(0.5,-0.2)},
 							anchor=north,legend columns=-1},
-						ylabel={Falsi positivi/Corretti (\%)},
+						ylabel={Falsi positivi/Totale (\%)},
 						symbolic x coords={-20\degree,-10\degree,0\degree,%
 							10\degree,20\degree,180\degree},
 						xtick=data,
@@ -269,8 +298,8 @@
 						nodes near coords align={vertical},
 						]
 						\addplot[draw=gray, fill=gray, bar width=0.06\textwidth] coordinates {
-							(-20\degree,8.7) (-10\degree,1.8) (0\degree,1.8)
-							(10\degree ,1.3) (20\degree,3.7) (180\degree,2.7)
+							(-20\degree,1.3) (-10\degree,0.3) (0\degree,4.5)
+							(10\degree ,0.3) (20\degree,3.5) (180\degree,2.4)
 						};
 					\end{axis}
 				\end{tikzpicture}
@@ -288,8 +317,8 @@
 						nodes near coords align={vertical},
 						]
 						\addplot[draw=gray, fill=gray, bar width=0.06\textwidth] coordinates {
-							(-20\degree,2.6) (-10\degree,0.2) (0\degree,0.2)
-							(10\degree ,0.5) (20\degree,1.1) (180\degree,1)
+							(-20\degree,0.5) (-10\degree,0.2) (0\degree,2.6)
+							(10\degree ,0.2) (20\degree,1.1) (180\degree,1)
 						};
 					\end{axis}
 				\end{tikzpicture}
@@ -303,10 +332,11 @@
 	\begin{columns}
 		\column{0.6\textwidth}
 		\begin{itemize}
-			\item Il sistema dipende dalla possibilità di generare immagini adatte
-			\item Il filtro NMS può generare aberrazioni con template dalla forma particolare
-			\item La funzione RANSAC che stima le file di rack potrebbe sbagliare in un magazzino con molte file parallele
-			\item Nell'implementazione corrente il sistema non cerca oggetti ruotati rispetto al template
+			\item La scelta del template può influenzare i risultati
+			\item Il filtro NMS a volte elimina risultati corretti
+			\item La funzione che stima le file di scaffali è inefficace se gli scaffali non sono in fila
+			\item Al momento il sistema non trova scaffali simili al template ma orientati diversamente
+			\item Non è stato possibile verificare sul campo il livello di precisione dei dati ottenuti
 		\end{itemize}
 		\column{0.4\textwidth}
 		\includegraphics[width=\textwidth]{Img/2D/aberrazioni_crop_inv}\\
@@ -319,11 +349,10 @@
 		\begin{center}
 			\begin{large}
 				\begin{itemize}
-					\item Ricerca di corrispondenze ruotate
-					\vskip 1cm
-					\item Stima di un raggio per NMS adatto al template fornito
-					\vskip 1cm
-					\item Verifica di correttezza delle file ipotizzate
+					\item Ricerca di oggetti orientati diversamente dal template
+					\item Miglioramenti del filtro NMS
+					\item Verifica sul campo della correttezza dei risultati ottenuti
+					\item Integrazione del sistema nella progettazione di magazzini automatizzati
 				\end{itemize}
 			\end{large}
 		\end{center}
