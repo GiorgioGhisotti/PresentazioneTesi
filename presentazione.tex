@@ -107,26 +107,28 @@
 
 \begin{frame}
 	\frametitle{Obiettivo del progetto}	%spiegare meglio punti operazione, aggiungere immagini
-	\vskip 0.6cm
+	%\vskip 0.6cm
 	\begin{center}
-		\begin{huge}
-			Individuare programmaticamente punti operazione per veicoli industriali a guida automatica (AGV)
-		\end{huge}
+		\begin{large}
+			Individuare automaticamente punti operazione per veicoli industriali a guida automatica (AGV)
+		\end{large}
 	\end{center}
 	\begin{columns}
-		\column{0.65\textwidth}
+		\column{0.5\textwidth}
 		\begin{itemize}
-			\item Punto Operazione: Configurazione per AGV che permette le operazioni di caricamento e scaricamento della merce
+			\item Punto Operazione: Configurazione del veicolo che permette le operazioni di prelievo e deposito di pallet da scaffalature
+			\item Dati di input: scansioni laser a larga scala
 		\end{itemize}
-		\column{0.35\textwidth}
+		\column{0.5\textwidth}
 		\begin{center}
+			\vskip -0.5cm
 			\includegraphics[width=\textwidth]{Img/LGV/op_po}
 		\end{center}
 	\end{columns}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Individuazione manuale dei Punti Operazione}
+	\frametitle{Metodi tradizionali di individuazione di Punti Operazione}
 	\begin{columns}
 		\column{0.6\textwidth}
 			\begin{large}
@@ -137,11 +139,11 @@
 						\item Una volta individuata una posizione corretta la si registra nel database
 						\item Difetti:
 							\begin{itemize}
-								\item Alto costo in ore/uomo
-								\item Può richiedere un blocco della produzione
+								\item Procedimento costoso (ore/uomo)
+								\item Può richiedere il blocco della produzione
 							\end{itemize}
 					\end{itemize}
-					\item Selezione manuale con il supporto di un software
+					\item Selezione manuale con il supporto di un visualizzatore 3D
 					\begin{itemize}	%migliorare linguaggio
 						%\item Meno complessa delle misurazioni sul campo
 						\item Difetti:
@@ -164,13 +166,14 @@
 	\begin{columns}
 		\column{0.6\textwidth}
 		\begin{itemize}
-			\item Il sistema esegue una ricerca di tipo pattern matching su un'immagine 2D
-			\item Si hanno a disposizione delle scansioni laser terrestri dei magazzini, aquisite con sensori Leica ScanStation P30
+			\item Dati di input: scansioni laser 3D, acquisite con sensore Leica ScanStation P30
 			\item I dati in entrata sono sotto forma di Point Cloud (che deve essere convertita in un'immagine 2D)
-			\item La Point Cloud di un magazzino medio contiene miliardi di punti
+			\item Il sistema esegue una ricerca di tipo pattern matching su un'immagine 2D
+			\item Ordine di grandezza: miliardi di punti per magazzini di decine di migliaia di metri quadrati
 		\end{itemize}
 		\column{0.4\textwidth}
 		\begin{center}
+			\vskip -1cm
 			\includegraphics[width=0.7\textwidth]{Img/LGV/Leica_ScanStation_P30}\\
 			\includegraphics[width=\textwidth]{Img/LGV/pcld}
 		\end{center}
@@ -183,9 +186,9 @@
 		\column{0.4\textwidth}
 		Per convertire una Point Cloud in un'immagine 2D:
 			\begin{enumerate}		%must be better
-				\item Si assegna un valore ai punti in base alla curvatura della superficie sottostante stimata
-				\item Si appiattisce la point cloud e si sommano i valori che cadono sulle celle di una griglia in 2D
-				\item Si assegna un colore in scala di grigi alle caselle della griglia in base al valore
+				\item Si assegna un valore ai punti 3D che stima il valore locale di curvatura
+				\item Si genera una griglia 2D - ogni cella contiene la somma normalizzata dei valori dei punti 3D la cui proiezione appartiene alla cella
+				\item Si assegna un colore in scala di grigi alle celle della griglia in base al valore
 			\end{enumerate}
 		\column{0.5\textwidth}
 			\includegraphics[width=0.6\textwidth]{Img/CURVATURE/CURVATURE_02_num}
@@ -201,7 +204,7 @@
 		\column{0.5\textwidth}
 			\begin{itemize}
 				\item Il sistema assegna un valore ad ogni pixel in base alla somiglianza con un template
-				\item Il valore è determinato con una Cross Correlation tra l'immagine e il template
+				\item Il valore è determinato con una Cross Correlation (OpenCV) tra l'immagine e il template
 				\item Il template deve essere selezionato dall'utente
 				\item Sono necessari alcuni filtri
 			\end{itemize}
@@ -260,11 +263,11 @@
 \frametitle{Risultati su un magazzino completo}
 \vskip -0.5cm
 \begin{itemize}
-	\item La linea blu rappresenta la fila di scaffali ipotizzata dal sistema
-	\item Si può osservare un falso positivo che è sfuggito ai filtri, a sinistra nell'immagine
+	\item La linea blu rappresenta la fila di scaffali calcolata automaticamente
+	\item Si può osservare un falso positivo all'estremo sinistro della fila
 \end{itemize}
 \vskip 0.5cm
-\includegraphics[width=\textwidth]{Img/2D/found_curves_red_inv}
+\includegraphics[width=\textwidth]{Img/2D/found_curves_red_inv_arrow}
 \end{frame}
 
 \begin{frame}
@@ -336,7 +339,6 @@
 			\item Il filtro NMS a volte elimina risultati corretti
 			\item La funzione che stima le file di scaffali è inefficace se gli scaffali non sono in fila
 			\item Al momento il sistema non trova scaffali simili al template ma orientati diversamente
-			\item Non è stato possibile verificare sul campo il livello di precisione dei dati ottenuti
 		\end{itemize}
 		\column{0.4\textwidth}
 		\includegraphics[width=\textwidth]{Img/2D/aberrazioni_crop_inv}\\
@@ -353,9 +355,8 @@
 					\vskip 0.5cm
 					\item Miglioramenti del filtro NMS
 					\vskip 0.5cm
-					\item Verifica sul campo della correttezza dei risultati ottenuti
-					\vskip 0.5cm
-					\item Integrazione del sistema nella progettazione di magazzini automatizzati
+					\item Integrazione del sistema di riconoscimento sviluppato nella fase di
+					progettazione di magazzini automatici e verifica della precisione
 				\end{itemize}
 			\end{large}
 		\end{center}
